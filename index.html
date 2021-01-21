@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>矿物筛查计算器</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+    />
+  </head>
+
+  <body>
+    <section>
+      <div class="container is-fluid my-5">
+        <div class="columns">
+          <div class="column is-one-third">
+            <div style="position: sticky; top: 1.5rem">
+              <h1 class="title">矿物筛查计算器</h1>
+              <p class="subtitle">Kedama Miner Calculator</p>
+              <div class="field">
+                <label class="label">玩家 ID</label>
+                <div class="control">
+                  <input
+                    id="input"
+                    class="input"
+                    type="text"
+                    placeholder="不区分大小写"
+                    oninput="value=value.replace(/[^\w\.\/]/ig,'')"
+                    onafterpaste="this.value=this.value.replace(/[^\w\.\/]/ig,'')"
+                    autocomplete="on"
+                  />
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label">服务器</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="select">
+                      <option value="kedama">毛玉线圈物语</option>
+                      <option value="nyaacat">NyaaCat 喵窝</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label">自定义矿物数据值</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="输入数据值，查询自定义矿物数量"
+                    oninput="value=value.replace(/[^\w\.\/]/ig,'')"
+                    onafterpaste="this.value=this.value.replace(/[^\w\.\/]/ig,'')"
+                    autocomplete="on"
+                  />
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label">自定义矿物比例</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="输入两个矿物数据值，中间以下划线分割"
+                    oninput="value=value.replace(/[^\w\.\/]/ig,'')"
+                    onafterpaste="this.value=this.value.replace(/[^\w\.\/]/ig,'')"
+                    autocomplete="on"
+                  />
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="control">
+                  <label class="checkbox">
+                    <input type="checkbox" />
+                    我已获知本工具所列出的数据仅供参考，并且不会使用这些数据恶意举报他人。
+                  </label>
+                </div>
+              </div>
+
+              <div class="field is-grouped">
+                <div class="control">
+                  <button class="button is-link">提交</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <nav class="panel">
+              <p class="panel-heading">玩家数据</p>
+              <table
+                class="table is-bordered is-fullwidth has-text-weight-medium is-size-6"
+              >
+                <tr>
+                  <td style="width: 33.3%">
+                    <p class="has-text-left">玩家名</p>
+                    <p class="has-text-link has-text-right" id="playername">
+                      未知
+                    </p>
+                  </td>
+                  <td style="width: 33.3%">
+                    <p class="has-text-left">首次上线时间</p>
+                    <p
+                      class="has-text-link has-text-right"
+                      id="playertimestart"
+                    >
+                      未知
+                    </p>
+                  </td>
+                  <td style="width: 33.3%">
+                    <p class="has-text-left">最后上线时间</p>
+                    <p class="has-text-link has-text-right" id="playertimelast">
+                      未知
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <p class="has-text-left">UUID</p>
+                    <p class="has-text-link has-text-right" id="playeruuid">
+                      未知
+                    </p>
+                  </td>
+                  <td>
+                    <p class="has-text-left">是否被ban</p>
+                    <p class="has-text-link has-text-right" id="playerban">
+                      未知
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </nav>
+            <nav class="panel">
+              <p class="panel-heading">挖掘数量</p>
+              <table
+                class="table is-bordered is-fullwidth has-text-weight-medium is-size-6"
+              >
+                <tr>
+                  <td style="width: 33.3%">
+                    <p class="has-text-left">石头</p>
+                    <p class="has-text-link has-text-right" id="stone">0</p>
+                  </td>
+                  <td style="width: 33.3%">
+                    <p class="has-text-left">煤</p>
+                    <p class="has-text-link has-text-right" id="coal">0</p>
+                  </td>
+                  <td style="width: 33.3%">
+                    <p class="has-text-left">铁</p>
+                    <p class="has-text-link has-text-right" id="iron">0</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="has-text-left">金</p>
+                    <p class="has-text-link has-text-right" id="gold">0</p>
+                  </td>
+                  <td>
+                    <p class="has-text-left">红石</p>
+                    <p class="has-text-link has-text-right" id="redstone">0</p>
+                  </td>
+                  <td>
+                    <p class="has-text-left">绿宝石</p>
+                    <p class="has-text-link has-text-right" id="emerald">0</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="has-text-left">钻石</p>
+                    <p class="has-text-link has-text-right" id="diamond">0</p>
+                  </td>
+                  <td>
+                    <p class="has-text-left">下界石英</p>
+                    <p class="has-text-link has-text-right" id="quartz">0</p>
+                  </td>
+                  <td>
+                    <p class="has-text-left">远古残骸</p>
+                    <p class="has-text-link has-text-right" id="ancientdebris">
+                      0
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </nav>
+            <nav class="panel">
+              <p class="panel-heading">矿物比例</p>
+              <table
+                class="table is-bordered is-fullwidth has-text-weight-medium is-size-6"
+              >
+                <tr>
+                  <td style="width: 33.3%">
+                    <p class="has-text-left">钻矿比</p>
+                    <p class="has-text-link has-text-right" id="diamondall">
+                      0%
+                    </p>
+                  </td>
+                  <td style="width: 33.3%">
+                    <p class="has-text-left">钻煤比</p>
+                    <p class="has-text-link has-text-right" id="diamondcoal">
+                      0%
+                    </p>
+                  </td>
+                  <td style="width: 33.3%">
+                    <p class="has-text-left">钻铁比</p>
+                    <p class="has-text-link has-text-right" id="diamondiron">
+                      0%
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p class="has-text-left">钻石比</p>
+                    <p class="has-text-link has-text-right" id="diamondstone">
+                      0%
+                    </p>
+                  </td>
+                  <td>
+                    <p class="has-text-left">矿石比</p>
+                    <p class="has-text-link has-text-right" id="allstone">0%</p>
+                  </td>
+                  <td>
+                    <p class="has-text-left">自定义矿石比例</p>
+                    <p class="has-text-link has-text-right">暂不可用</p>
+                  </td>
+                </tr>
+              </table>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script>
+      $(window).keydown(function (event) {
+        if (event.keyCode == 13) {
+          $("button").click();
+        }
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        $("button").click(function () {
+          $.getJSON(
+            "./api/?server=" + $("#select").val() + "&id=" + $("#input").val(),
+            function (result) {
+              $.each(result, function (i, field) {
+                $("#playername").html(result.playername);
+                $("#playertimestart").html(result.playertimestart);
+                $("#playertimelast").html(result.playertimelast);
+                $("#playeruuid").html(result.playeruuid);
+                $("#playerban").html(result.playerban);
+                $("#stone").html(result.mined.stone);
+                $("#coal").html(result.mined.coal);
+                $("#iron").html(result.mined.iron);
+                $("#gold").html(result.mined.gold);
+                $("#redstone").html(result.mined.redstone);
+                $("#emerald").html(result.mined.emerald);
+                $("#diamond").html(result.mined.diamond);
+                $("#quartz").html(result.mined.quartz);
+                $("#ancientdebris").html(result.ratio.ancientdebris);
+                $("#diamondall").html(result.ratio.diamondall);
+                $("#diamondcoal").html(result.ratio.diamondcoal);
+                $("#diamondiron").html(result.ratio.diamondiron);
+                $("#diamondstone").html(result.ratio.diamondstone);
+                $("#allstone").html(result.ratio.allstone);
+              });
+            }
+          );
+        });
+      });
+    </script>
+  </body>
+</html>
